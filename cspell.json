@@ -1,0 +1,33 @@
+{
+  "version": "0.2",
+  "words": [
+    "SWTR",
+    "OXFD",
+    "KHAKI",
+    "KhakiSol",
+    "Shopify",
+    "myshopify",
+    "shpat",
+    "shpss",
+    "xoxb",
+    "ngrok",
+    "ollama",
+    "openrouter",
+    "pygcet",
+    "langchain",
+    "Creds",
+    "TSHIRT",
+    "SNKR",
+    "Prioritizer",
+    "PRIORITIZER",
+    "mistralai",
+    "Uncategorized",
+    "nomic"
+  ],
+  "ignorePaths": [
+    "data/*.json",
+    "*.json",
+    "node_modules/**",
+    ".env"
+  ]
+}

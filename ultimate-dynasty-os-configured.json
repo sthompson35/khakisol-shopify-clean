@@ -1,0 +1,1796 @@
+{
+  "name": "ultimate-dynasty-os",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $fromAI('URL', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "typeVersion": 1.2,
+      "position": [
+        -2784,
+        1168
+      ],
+      "id": "7febc10d-90ce-4329-90fb-a9a2ca0185c4",
+      "name": "Get Tech News"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Reads the news",
+        "url": "=https://feeds.bbci.co.uk/news/world/rss.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "typeVersion": 1.2,
+      "position": [
+        -2656,
+        1168
+      ],
+      "id": "9424428d-45e2-4085-99f6-ee223802ba5a",
+      "name": "Get World News"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -3040,
+        1168
+      ],
+      "id": "a4fcf631-d3d9-4c4d-9e7b-02c93e70b23f",
+      "name": "OpenAI Model",
+      "notesInFlow": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      },
+      "notes": "Free n8n credits "
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize world news and tech news from the last 24 hours. \nSkip your comments. \nThe titles should be \"World news:\" and \"Tech news:\" \nLimit to 10 bullet points. \nToday is {{ $today }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -2928,
+        944
+      ],
+      "id": "99bed296-3855-4d89-b983-f30539cfa775",
+      "name": "AI Summary Agent",
+      "notesInFlow": true,
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {
+        "content": "### ✅ This test workflow is ready to use:\nHover over here and click the orange \"Execute workflow\" button below.\n",
+        "height": 240,
+        "width": 400,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3424,
+        768
+      ],
+      "id": "e664273f-63c6-4f12-804a-0fcd99c294cb",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "sendTo": "sdthompson35@gmail.com",
+        "subject": "Your news daily summary",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -2224,
+        944
+      ],
+      "id": "d0e843dc-c398-4d32-8c56-0bf83176add3",
+      "name": "Send summary with Gmail",
+      "webhookId": "99bdd654-5c17-4ba1-b091-3d726e56f88d",
+      "notesInFlow": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eFaQYgT42pcKU2U5",
+          "name": "Gmail account"
+        }
+      },
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3264,
+        848
+      ],
+      "id": "e6618880-9281-4d92-91ff-c9a000429b7d",
+      "name": "Manual execution"
+    },
+    {
+      "parameters": {
+        "content": "###  Bonus (optional)\nConnect the `Output (News Summary)` to the node below, add your Google account info, and send the News summary by email.                                ",
+        "height": 112,
+        "width": 384,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        256
+      ],
+      "id": "5e33fbe1-1971-48f8-81c7-08bd32e24aca",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "85b5c530-2c13-4424-ab83-05979bc879a5",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2448,
+        944
+      ],
+      "id": "f0a79856-ddcf-404b-95a7-a9bf882697ff",
+      "name": "Output (News summary)",
+      "notesInFlow": true,
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -3264,
+        1040
+      ],
+      "id": "891d4705-4649-47d7-92bc-92c95cb8a11d",
+      "name": "When chat message received",
+      "webhookId": "eb99c858-ecfc-429b-81ee-8f57e932681f"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $now }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -2912,
+        1168
+      ],
+      "id": "15c254c1-e212-45d5-9606-7e0daa539171",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "69d0ba83-289f-4a35-8a03-74673801039d",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3264,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "shopifyStoreName",
+              "value": "pygcet-kp.myshopify.com",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "lowStockThreshold",
+              "value": 10,
+              "type": "number"
+            },
+            {
+              "id": "id-3",
+              "name": "customerServiceEmail",
+              "value": "sdthompson35@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "0d2f2f9d-f63e-4864-872b-0e5783f1d1d6",
+      "name": "Workflow Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3040,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Manage the Shopify store: {{ $json.shopifyStoreName }}. Today is {{ $now.toFormat(\"yyyy-MM-dd\") }}.",
+        "options": {
+          "systemMessage": "You are the Orchestrator Agent for a Shopify store management system.\n\nYour role is to coordinate specialized AI agents to run the store efficiently.\n\nYour task is to:\n1. Call the Inventory Manager Agent Tool to check stock levels and reorder products if needed\n2. Call the Customer Service Agent Tool to respond to customer inquiries\n3. Call the Marketing Agent Tool to analyze sales data and suggest promotions\n4. Call the Order Fulfillment Agent Tool to process pending orders\n5. Compile a summary report of all activities\n\nReturn a comprehensive report of all actions taken by each agent."
+        }
+      },
+      "id": "ebde2f34-e909-476d-b9dc-cd638fc138c7",
+      "name": "Orchestrator Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -2400,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "a35a6f14-b7b3-4a3c-a5de-a83103f35211",
+      "name": "OpenAI Model - Orchestrator",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2816,
+        416
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Manages inventory levels, checks stock, and reorders products when needed",
+        "text": "=Low stock threshold: {{ $fromAI(\"threshold\", \"Stock threshold level\", \"number\", 10) }}",
+        "options": {
+          "systemMessage": "You are the Inventory Manager Agent for a Shopify store.\n\nYour responsibilities:\n1. Check current inventory levels using the Shopify Tool\n2. Identify products below the low stock threshold\n3. Create purchase orders or restock alerts for low inventory items\n4. Report on inventory status\n\nUse the Shopify Tool to:\n- Get all products and their inventory levels\n- Update product quantities if needed\n- Check for out-of-stock items\n\nReturn a detailed inventory report including:\n- Total products checked\n- Low stock items (below threshold)\n- Out of stock items\n- Recommended reorder quantities"
+        }
+      },
+      "id": "e2dc7801-aa91-43b8-8149-98dd9a05e9aa",
+      "name": "Inventory Manager Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -2688,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "abbd0144-1149-43de-a877-cca8a74d8fb5",
+      "name": "OpenAI Model - Inventory",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2672,
+        624
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "product",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {
+          "collection_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Collection_ID', ``, 'string') }}",
+          "product_type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Type', ``, 'string') }}",
+          "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+          "vendor": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Vendor', ``, 'string') }}"
+        }
+      },
+      "id": "c463ca23-d65d-4341-bd71-8a9a07d24075",
+      "name": "Shopify Tool - Inventory",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        -2528,
+        624
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Handles customer inquiries and sends email responses",
+        "text": "=Customer service email: {{ $fromAI(\"email\", \"Customer service email address\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Customer Service Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for new customer inquiries or support tickets\n2. Draft professional and helpful email responses\n3. Send responses using the Gmail Tool\n4. Track customer satisfaction\n\nWhen responding to customers:\n- Be professional and empathetic\n- Provide clear solutions or next steps\n- Include relevant order or product information\n- Maintain brand voice\n\nUse the Gmail Tool to send email responses.\n\nReturn a summary of:\n- Number of inquiries handled\n- Types of issues addressed\n- Emails sent"
+        }
+      },
+      "id": "ccf773ba-9ea3-451c-a55f-af55ddf8074b",
+      "name": "Customer Service Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -2400,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "b3a21187-df1d-47b9-ba39-84312de670d8",
+      "name": "OpenAI Model - Customer Service",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2400,
+        624
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $fromAI('to') }}",
+        "subject": "={{ $fromAI('subject') }}",
+        "message": "={{ $fromAI('message') }}",
+        "options": {}
+      },
+      "id": "c2be4263-fe09-4969-8a8f-080314153423",
+      "name": "Gmail Tool - Customer Service",
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -2240,
+        624
+      ],
+      "webhookId": "6c7761f2-8e16-4483-82bb-f5b10ea541b8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eFaQYgT42pcKU2U5",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Analyzes sales data and creates marketing campaigns",
+        "text": "=Store name: {{ $fromAI(\"storeName\", \"Shopify store name\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Marketing Agent for a Shopify store.\n\nYour responsibilities:\n1. Analyze recent sales data and trends using the Shopify Tool\n2. Identify best-selling and underperforming products\n3. Suggest promotional campaigns or discounts\n4. Create marketing recommendations\n\nUse the Shopify Tool to:\n- Get order data and sales metrics\n- Analyze product performance\n- Review customer purchase patterns\n\nReturn a marketing report including:\n- Sales trends analysis\n- Top performing products\n- Recommended promotions or discounts\n- Target customer segments\n- Suggested marketing actions"
+        }
+      },
+      "id": "56c8fe07-363d-423a-a76a-430dbed472a0",
+      "name": "Marketing Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -2112,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "eb45edf5-441f-4939-91bf-0f5ee149a76a",
+      "name": "OpenAI Model - Marketing",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2112,
+        624
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": "={{ $fromAI(\"limit\", \"Number of orders to retrieve\", \"number\", 50) }}",
+        "options": {
+          "attributionAppId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Attribution_App_ID', ``, 'string') }}",
+          "createdAtMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Created_At_Min', ``, 'string') }}",
+          "createdAtMax": "",
+          "financialStatus": "any",
+          "fulfillmentStatus": "any",
+          "fields": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Fields', ``, 'string') }}",
+          "ids": "",
+          "processedAtMax": "",
+          "processedAtMin": "",
+          "status": "open",
+          "sinceId": "",
+          "updatedAtMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Updated_At_Max', ``, 'string') }}",
+          "updatedAtMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Updated_At_Min', ``, 'string') }}"
+        }
+      },
+      "id": "48d4bf1c-6a9d-4746-8641-f93cc09ba178",
+      "name": "Shopify Tool - Marketing",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        624
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Processes pending orders and manages fulfillment",
+        "text": "=Process orders for store: {{ $fromAI(\"storeName\", \"Shopify store name\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Order Fulfillment Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for pending/unfulfilled orders using the Shopify Tool\n2. Verify inventory availability for orders\n3. Update order fulfillment status\n4. Flag any issues or delays\n\nUse the Shopify Tool to:\n- Get all unfulfilled orders\n- Check order details and line items\n- Update fulfillment status\n- Track shipping information\n\nReturn a fulfillment report including:\n- Total orders processed\n- Successfully fulfilled orders\n- Orders with issues or delays\n- Inventory concerns\n- Next steps required"
+        }
+      },
+      "id": "716192d4-2db7-4955-9f84-bc0877d0c8f9",
+      "name": "Order Fulfillment Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1824,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "acad6170-9226-4e55-b924-011dbca3ba5c",
+      "name": "OpenAI Model - Fulfillment",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1824,
+        624
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": "={{ $fromAI(\"limit\", \"Number of orders to retrieve\", \"number\", 50) }}",
+        "options": {}
+      },
+      "id": "478b910a-7965-4bea-923d-7c0ce7e79cd3",
+      "name": "Shopify Tool - Fulfillment",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        624
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "reportDate",
+              "value": "={{ $now.toFormat(\"yyyy-MM-dd HH:mm:ss\") }}",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "storeName",
+              "value": "={{ $('Workflow Configuration').first().json.shopifyStoreName }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "summary",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "status",
+              "value": "completed",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d16fcc93-7f91-4a4d-9583-c1df38c44450",
+      "name": "Format Results",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1456,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "0747ee6f-1940-4523-8ade-b9b42db218da",
+      "name": "Dynasty Daily Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        2272,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.stripe.com/v1/balance",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "stripeApi",
+        "options": {}
+      },
+      "id": "ce48d220-2e36-4f43-81b6-a43a06d53992",
+      "name": "Check Dynasty KPI Sheet / Stripe",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2576,
+        416
+      ],
+      "credentials": {
+        "stripeApi": {
+          "id": "PN1Yhu7hhndNuJOD",
+          "name": "Stripe account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C099Q1PUS3G",
+          "mode": "list",
+          "cachedResultName": "all-shylow-thompsonllc"
+        },
+        "text": "✅ Dynasty Daily Legal & KPI Check Completed",
+        "otherOptions": {}
+      },
+      "id": "ec0456af-9078-409f-b134-4ce7db176ac7",
+      "name": "Dynasty Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [
+        2880,
+        416
+      ],
+      "webhookId": "7891f1a7-163d-490f-b9e6-6a3f43ae2b0f",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "MMu7Mu5l6zSSUZmh",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.theverge.com/rss/index.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        1488
+      ],
+      "id": "db3beaae-4cdc-41b9-920f-609d6bb0d4ce",
+      "name": "Get Tech News1"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Reads the news",
+        "url": "=https://feeds.bbci.co.uk/news/world/rss.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        1488
+      ],
+      "id": "10db1204-0628-4f7c-9cf7-558c441fe186",
+      "name": "Get World News1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        1488
+      ],
+      "id": "ca995f59-b830-408c-a342-eaa1c852c788",
+      "name": "OpenAI Model1",
+      "notesInFlow": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      },
+      "notes": "Free n8n credits "
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize world news and tech news from the last 24 hours. \nSkip your comments. \nThe titles should be \"World news:\" and \"Tech news:\" \nLimit to 10 bullet points. \nToday is {{ $today }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        1264
+      ],
+      "id": "5fc37263-26df-4929-a693-199656a454da",
+      "name": "AI Summary Agent1",
+      "notesInFlow": true,
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {
+        "content": "### ✅ This test workflow is ready to use:\nHover over here and click the orange \"Execute workflow\" button below.\n",
+        "height": 240,
+        "width": 400,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        1088
+      ],
+      "id": "85282253-5c3d-4edb-a9c2-7dbfd256214d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "sendTo": "sdthompson35@gmail.com",
+        "subject": "Your news daily summary",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1248,
+        1264
+      ],
+      "id": "850caedb-6d0f-4409-a489-835d5009fd3a",
+      "name": "Send summary with Gmail1",
+      "webhookId": "99bdd654-5c17-4ba1-b091-3d726e56f88d",
+      "notesInFlow": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eFaQYgT42pcKU2U5",
+          "name": "Gmail account"
+        }
+      },
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {
+        "content": "###  Bonus (optional)\nConnect the `Output (News Summary)` to the node below, add your Google account info, and send the News summary by email.",
+        "height": 112,
+        "width": 384,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3648,
+        576
+      ],
+      "id": "1ee8b35b-bbe6-4af9-93b0-4498f8defc78",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "85b5c530-2c13-4424-ab83-05979bc879a5",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1024,
+        1264
+      ],
+      "id": "0bcdd285-88f4-4cd6-bd00-e5461a522812",
+      "name": "Output (News summary)1",
+      "notesInFlow": true,
+      "notes": "Double-click to open"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $now }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        1488
+      ],
+      "id": "f376604d-8344-4bdb-a1cb-ff11f8a89eba",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "150e3a3c-acab-40b5-925b-284c47adaaa5",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "shopifyStoreName",
+              "value": "pygcet-kp.myshopify.com",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "lowStockThreshold",
+              "value": 10,
+              "type": "number"
+            },
+            {
+              "id": "id-3",
+              "name": "customerServiceEmail",
+              "value": "sdthompson35@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "56ff3088-6184-4bc8-935a-eeeb70283f1d",
+      "name": "Workflow Configuration1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Manage the Shopify store: {{ $json.shopifyStoreName }}. Today is {{ $now.toFormat(\"yyyy-MM-dd\") }}.",
+        "options": {
+          "systemMessage": "You are the Orchestrator Agent for a Shopify store management system.\n\nYour role is to coordinate specialized AI agents to run the store efficiently.\n\nYour task is to:\n1. Call the Inventory Manager Agent Tool to check stock levels and reorder products if needed\n2. Call the Customer Service Agent Tool to respond to customer inquiries\n3. Call the Marketing Agent Tool to analyze sales data and suggest promotions\n4. Call the Order Fulfillment Agent Tool to process pending orders\n5. Compile a summary report of all activities\n\nReturn a comprehensive report of all actions taken by each agent."
+        }
+      },
+      "id": "5d7df384-3a8a-4829-be98-a5ef4f712793",
+      "name": "Orchestrator Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1088,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "459ef5f2-a32e-431b-bc58-9cb5b1392418",
+      "name": "OpenAI Model - Orchestrator1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        736
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Manages inventory levels, checks stock, and reorders products when needed",
+        "text": "=Low stock threshold: {{ $fromAI(\"threshold\", \"Stock threshold level\", \"number\", 10) }}",
+        "options": {
+          "systemMessage": "You are the Inventory Manager Agent for a Shopify store.\n\nYour responsibilities:\n1. Check current inventory levels using the Shopify Tool\n2. Identify products below the low stock threshold\n3. Create purchase orders or restock alerts for low inventory items\n4. Report on inventory status\n\nUse the Shopify Tool to:\n- Get all products and their inventory levels\n- Update product quantities if needed\n- Check for out-of-stock items\n\nReturn a detailed inventory report including:\n- Total products checked\n- Low stock items (below threshold)\n- Out of stock items\n- Recommended reorder quantities"
+        }
+      },
+      "id": "de7726b4-bcea-4305-baad-1a9cd61bf1fa",
+      "name": "Inventory Manager Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "87ecbcb3-0e46-4e43-8238-f55736395cc2",
+      "name": "OpenAI Model - Inventory1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        944
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "product",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {
+          "collection_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Collection_ID', ``, 'string') }}",
+          "product_type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Type', ``, 'string') }}",
+          "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+          "vendor": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Vendor', ``, 'string') }}"
+        }
+      },
+      "id": "c0b4ab81-45d4-4575-930f-281d29c20cbc",
+      "name": "Shopify Tool - Inventory1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        944,
+        944
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Handles customer inquiries and sends email responses",
+        "text": "=Customer service email: {{ $fromAI(\"email\", \"Customer service email address\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Customer Service Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for new customer inquiries or support tickets\n2. Draft professional and helpful email responses\n3. Send responses using the Gmail Tool\n4. Track customer satisfaction\n\nWhen responding to customers:\n- Be professional and empathetic\n- Provide clear solutions or next steps\n- Include relevant order or product information\n- Maintain brand voice\n\nUse the Gmail Tool to send email responses.\n\nReturn a summary of:\n- Number of inquiries handled\n- Types of issues addressed\n- Emails sent"
+        }
+      },
+      "id": "4004a36d-c071-4c2a-a8e4-3e0e1acbf3aa",
+      "name": "Customer Service Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "293a6dff-3750-4a30-be8d-8589166e4777",
+      "name": "OpenAI Model - Customer Service1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1072,
+        944
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $fromAI('to') }}",
+        "subject": "={{ $fromAI('subject') }}",
+        "message": "={{ $fromAI('message') }}",
+        "options": {}
+      },
+      "id": "2583340f-ae0b-432a-a2e1-0b5ab01d4741",
+      "name": "Gmail Tool - Customer Service1",
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1232,
+        944
+      ],
+      "webhookId": "6c7761f2-8e16-4483-82bb-f5b10ea541b8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eFaQYgT42pcKU2U5",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Analyzes sales data and creates marketing campaigns",
+        "text": "=Store name: {{ $fromAI(\"storeName\", \"Shopify store name\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Marketing Agent for a Shopify store.\n\nYour responsibilities:\n1. Analyze recent sales data and trends using the Shopify Tool\n2. Identify best-selling and underperforming products\n3. Suggest promotional campaigns or discounts\n4. Create marketing recommendations\n\nUse the Shopify Tool to:\n- Get order data and sales metrics\n- Analyze product performance\n- Review customer purchase patterns\n\nReturn a marketing report including:\n- Sales trends analysis\n- Top performing products\n- Recommended promotions or discounts\n- Target customer segments\n- Suggested marketing actions"
+        }
+      },
+      "id": "2a3df95c-4c88-4e97-a63d-a39b805b323e",
+      "name": "Marketing Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "a97753ab-c133-4ec8-ad59-5ccc91c46726",
+      "name": "OpenAI Model - Marketing1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        944
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": "={{ $fromAI(\"limit\", \"Number of orders to retrieve\", \"number\", 50) }}",
+        "options": {
+          "attributionAppId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Attribution_App_ID', ``, 'string') }}",
+          "createdAtMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Created_At_Min', ``, 'string') }}",
+          "createdAtMax": "",
+          "financialStatus": "any",
+          "fulfillmentStatus": "any",
+          "fields": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Fields', ``, 'string') }}",
+          "ids": "",
+          "processedAtMax": "",
+          "processedAtMin": "",
+          "status": "open",
+          "sinceId": "",
+          "updatedAtMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Updated_At_Max', ``, 'string') }}",
+          "updatedAtMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Updated_At_Min', ``, 'string') }}"
+        }
+      },
+      "id": "6181a930-8d9a-4d14-8d72-b8a31c80e77e",
+      "name": "Shopify Tool - Marketing1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        944
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Processes pending orders and manages fulfillment",
+        "text": "=Process orders for store: {{ $fromAI(\"storeName\", \"Shopify store name\", \"string\") }}",
+        "options": {
+          "systemMessage": "You are the Order Fulfillment Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for pending/unfulfilled orders using the Shopify Tool\n2. Verify inventory availability for orders\n3. Update order fulfillment status\n4. Flag any issues or delays\n\nUse the Shopify Tool to:\n- Get all unfulfilled orders\n- Check order details and line items\n- Update fulfillment status\n- Track shipping information\n\nReturn a fulfillment report including:\n- Total orders processed\n- Successfully fulfilled orders\n- Orders with issues or delays\n- Inventory concerns\n- Next steps required"
+        }
+      },
+      "id": "b2dc5d73-8c60-4cd9-8a6a-18b9bf280195",
+      "name": "Order Fulfillment Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        1648,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "58de8e96-d7c0-4b46-9ceb-d686c781f895",
+      "name": "OpenAI Model - Fulfillment1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1648,
+        944
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "RYK6dJ64oGG4On28",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": "={{ $fromAI(\"limit\", \"Number of orders to retrieve\", \"number\", 50) }}",
+        "options": {}
+      },
+      "id": "f0de4b11-db23-4b95-becb-aa992f5324d4",
+      "name": "Shopify Tool - Fulfillment1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        944
+      ],
+      "credentials": {
+        "shopifyApi": {
+          "id": "YnAASjfCPypdAjl6",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "reportDate",
+              "value": "={{ $now.toFormat(\"yyyy-MM-dd HH:mm:ss\") }}",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "storeName",
+              "value": "={{ $('Workflow Configuration1').first().json.shopifyStoreName }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "summary",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "status",
+              "value": "completed",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3464f0f3-bde9-4dc6-81b4-699d1b93a24e",
+      "name": "Format Results1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2016,
+        720
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get Tech News": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get World News": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Summary Agent": {
+      "main": [
+        [
+          {
+            "node": "Output (News summary)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual execution": {
+      "main": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output (News summary)": {
+      "main": [
+        [
+          {
+            "node": "Send summary with Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Summary Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Workflow Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Configuration": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent": {
+      "main": [
+        [
+          {
+            "node": "Format Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Orchestrator": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inventory Manager Agent Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Inventory": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Inventory Manager Agent Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "Inventory Manager Agent Tool",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Service Agent Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Customer Service": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer Service Agent Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Tool - Customer Service": {
+      "ai_tool": [
+        [
+          {
+            "node": "Customer Service Agent Tool",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marketing Agent Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Marketing": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Marketing Agent Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Marketing": {
+      "ai_tool": [
+        [
+          {
+            "node": "Marketing Agent Tool",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Fulfillment Agent Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Fulfillment": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Order Fulfillment Agent Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Fulfillment": {
+      "ai_tool": [
+        [
+          {
+            "node": "Order Fulfillment Agent Tool",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dynasty Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Dynasty KPI Sheet / Stripe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Dynasty KPI Sheet / Stripe": {
+      "main": [
+        [
+          {
+            "node": "Dynasty Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tech News1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Summary Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get World News1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Summary Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Summary Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Summary Agent1": {
+      "main": [
+        [
+          {
+            "node": "Output (News summary)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output (News summary)1": {
+      "main": [
+        [
+          {
+            "node": "Send summary with Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Summary Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Workflow Configuration1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Configuration1": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent1": {
+      "main": [
+        [
+          {
+            "node": "Format Results1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Orchestrator1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inventory Manager Agent Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Inventory1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Inventory Manager Agent Tool1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Inventory1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Inventory Manager Agent Tool1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Service Agent Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Customer Service1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer Service Agent Tool1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Tool - Customer Service1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Customer Service Agent Tool1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marketing Agent Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Marketing1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Marketing Agent Tool1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Marketing1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Marketing Agent Tool1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Fulfillment Agent Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Fulfillment1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Order Fulfillment Agent Tool1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Tool - Fulfillment1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Order Fulfillment Agent Tool1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "2a2d8995-9bd0-48d9-be94-86772e4ce887",
+  "meta": {
+    "templateId": "ready-to-run-ai-workflow-v3",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b10a475e3ee03d3707a3489958bc3cad27d6b0f971fa58420cb1a8b8f7a788cc"
+  },
+  "id": "OEGkyufLk21eS6lz",
+  "tags": []
+}

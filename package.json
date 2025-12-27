@@ -1,0 +1,77 @@
+{
+  "name": "khakisol-ai-command",
+  "version": "2.0.0",
+  "description": "KhakiSol Shopify Store - AI-Powered Management System with 30 AI Troopers",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "server": "node src/server.js",
+    "server:dev": "node --watch src/server.js",
+    
+    "troopers": "node src/aiTroopers.js",
+    "troopers:list": "node src/aiTroopers.js --list",
+    "troopers:quick": "node src/aiTroopers.js --quick",
+    "troopers:inventory": "node src/aiTroopers.js --quick Inventory",
+    "troopers:marketing": "node src/aiTroopers.js --quick Marketing",
+    "troopers:analytics": "node src/aiTroopers.js --quick Analytics",
+    "troopers:support": "node src/aiTroopers.js --quick \"Customer Service\"",
+    
+    "ai:manager": "node src/aiStoreManager.js",
+    "ai:test": "node src/testOpenAI.js",
+    
+    "products": "node src/examples/products.js",
+    "products:add": "node src/addProducts.js",
+    "products:images": "node src/addProductImages.js",
+    "products:import": "node src/importProducts.js",
+    
+    "customers": "node src/examples/customers.js",
+    "customers:add": "node src/addCustomers.js",
+    
+    "collections": "node src/createCollections.js",
+    
+    "orders": "node src/examples/orders.js",
+    "inventory": "node src/services/inventorySync.js",
+    "order-sync": "node src/services/orderSync.js",
+    
+    "webhooks": "node src/services/webhookManager.js",
+    "webhooks:list": "node src/services/webhookManager.js list",
+    "webhooks:register": "node src/services/webhookManager.js register",
+    "webhooks:delete": "node src/services/webhookManager.js delete",
+    
+    "workflow:configure": "node src/configureWorkflow.js",
+    
+    "scan": "node src/scanner.js",
+    "status": "node src/status.js",
+    
+    "integrations": "node src/integrations/test.js",
+    "integrations:hub": "node src/integrations/hub.js",
+    "notion:test": "node src/integrations/test.js notion",
+    "slack:test": "node src/integrations/slackTest.js",
+    "ollama:test": "node src/integrations/test.js ollama",
+    "openrouter:test": "node src/integrations/openrouter.js",
+    
+    "plos": "node plos-runner.js",
+    "plos:setup": "node plos-runner.js setup",
+    "plos:daily": "node plos-runner.js daily",
+    "plos:control-panel": "node plos-runner.js control-panel",
+    "plos:traffic-report": "node plos-runner.js traffic-report",
+    "plos:content": "node plos-runner.js content",
+    "plos:rapid-check": "node plos-runner.js rapid-check"
+  },
+  "keywords": ["shopify", "api", "ecommerce", "webhooks", "ai", "automation", "n8n", "khakisol"],
+  "author": "KhakiSol",
+  "license": "MIT",
+  "dependencies": {
+    "@shopify/shopify-api": "^9.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

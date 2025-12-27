@@ -1,0 +1,285 @@
+{
+  "name": "KhakiSol",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -672,
+        -128
+      ],
+      "id": "51b8b017-2da0-4c9d-88f0-c1a1f238ed2d",
+      "name": "When chat message received",
+      "webhookId": "3ba7921e-ede4-4365-8fda-08abc96a2c67"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -464,
+        -128
+      ],
+      "id": "9dfc6004-1cc5-4e05-af32-a88794ce089b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-5-20250929",
+          "cachedResultName": "Claude Sonnet 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -608,
+        80
+      ],
+      "id": "e194a84d-0312-40f4-904b-c052d2b43a1c",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "0hck8kKdppSFSWxt",
+          "name": "Anthropic account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        80
+      ],
+      "id": "1471c96c-b9fa-4185-9f5a-ec833fb36878",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -128
+      ],
+      "id": "2f0d0861-81c3-47e5-b1a5-48046945adc9",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "additionalFields": {},
+        "limeItemsUi": {
+          "lineItemValues": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.shopify",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        112
+      ],
+      "id": "28420c85-8c91-4f8d-9b28-b76b0c641ea3",
+      "name": "Create an order",
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "retryOnFail": true,
+      "credentials": {
+        "shopifyAccessTokenApi": {
+          "id": "aKTRWWIEVpcDugOW",
+          "name": "Shopify Access Token account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.shopify",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        112
+      ],
+      "id": "453d9594-71da-4e01-af30-3dfde4662965",
+      "name": "Create an order1",
+      "credentials": {
+        "shopifyApi": {
+          "id": "VXUaj50KC9KvtBWF",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -176
+      ],
+      "id": "57d84fb9-6a87-4591-ba13-e07b959cc3a3",
+      "name": "Create an order in Shopify",
+      "credentials": {
+        "shopifyApi": {
+          "id": "VXUaj50KC9KvtBWF",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "product",
+        "title": "={{ $workflow.name }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.shopify",
+      "typeVersion": 1,
+      "position": [
+        96,
+        112
+      ],
+      "id": "adbeb4e6-8de0-41db-83c0-17f9c9b1b4aa",
+      "name": "Create a product",
+      "credentials": {
+        "shopifyApi": {
+          "id": "VXUaj50KC9KvtBWF",
+          "name": "Shopify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "product",
+        "operation": "getAll",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.shopify",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -48
+      ],
+      "id": "f6b3ddeb-58f8-428b-a2a7-7879b1241959",
+      "name": "Get many products",
+      "credentials": {
+        "shopifyApi": {
+          "id": "VXUaj50KC9KvtBWF",
+          "name": "Shopify account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "Create an order": {
+      "main": [
+        [
+          {
+            "node": "Create an order1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a product": {
+      "main": [
+        [
+          {
+            "node": "Get many products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an order1": {
+      "main": [
+        [
+          {
+            "node": "Create a product",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "500c2660-d1cb-4a9c-8558-4b556ab7332c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c96184e9c73110ff841fa8dd362b23e4b0a56fb6dbfa8b67e0ab632a82eb0843"
+  },
+  "id": "Djlr7EEKXGWuRI43",
+  "tags": []
+}

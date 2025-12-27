@@ -1,0 +1,218 @@
+{
+  "events": [
+    {
+      "id": "evt_1764978104194_7lu373y58",
+      "type": "order",
+      "topic": "orders/create",
+      "timestamp": "2025-12-05T23:41:44.194Z",
+      "data": {
+        "orderNumber": "TEST-001",
+        "customer": "John Doe",
+        "email": "test@khakisol.com",
+        "total": "149.99",
+        "currency": "USD",
+        "itemCount": 1,
+        "status": "paid",
+        "fulfillment": "unfulfilled"
+      },
+      "raw": {
+        "id": 12345,
+        "order_number": "TEST-001",
+        "email": "test@khakisol.com",
+        "total_price": "149.99",
+        "currency": "USD",
+        "financial_status": "paid",
+        "customer": {
+          "first_name": "John",
+          "last_name": "Doe"
+        },
+        "line_items": [
+          {
+            "name": "Test Product",
+            "quantity": 2,
+            "price": "74.99"
+          }
+        ]
+      }
+    },
+    {
+      "id": "evt_1764978114910_b42wdcumi",
+      "type": "order",
+      "topic": "orders/create",
+      "timestamp": "2025-12-05T23:41:54.910Z",
+      "data": {
+        "orderNumber": "TEST-001",
+        "customer": "John Doe",
+        "email": "test@khakisol.com",
+        "total": "149.99",
+        "currency": "USD",
+        "itemCount": 1,
+        "fulfillment": "unfulfilled"
+      },
+      "raw": {
+        "id": 12345,
+        "order_number": "TEST-001",
+        "email": "test@khakisol.com",
+        "total_price": "149.99",
+        "currency": "USD",
+        "customer": {
+          "first_name": "John",
+          "last_name": "Doe"
+        },
+        "line_items": [
+          {
+            "name": "Widget",
+            "quantity": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "evt_1764978131700_alwc2jvun",
+      "type": "product",
+      "topic": "products/update",
+      "timestamp": "2025-12-05T23:42:11.700Z",
+      "data": {
+        "productId": 777,
+        "title": "Premium Widget",
+        "vendor": "KhakiSol",
+        "status": "active",
+        "variants": 2
+      },
+      "raw": {
+        "id": 777,
+        "title": "Premium Widget",
+        "vendor": "KhakiSol",
+        "status": "active",
+        "variants": [
+          {
+            "id": 1
+          },
+          {
+            "id": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "evt_1764978131775_80hnqptj9",
+      "type": "customer",
+      "topic": "customers/create",
+      "timestamp": "2025-12-05T23:42:11.775Z",
+      "data": {
+        "customerId": 888,
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "ordersCount": 5,
+        "totalSpent": "500.00"
+      },
+      "raw": {
+        "id": 888,
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane@example.com",
+        "orders_count": 5,
+        "total_spent": "500.00"
+      }
+    },
+    {
+      "id": "evt_1764978131840_vtyvlxe04",
+      "type": "inventory",
+      "topic": "inventory_levels/update",
+      "timestamp": "2025-12-05T23:42:11.840Z",
+      "data": {
+        "inventoryItemId": 999,
+        "locationId": 1,
+        "available": 25,
+        "updatedAt": "2025-12-05T23:45:00Z"
+      },
+      "raw": {
+        "inventory_item_id": 999,
+        "location_id": 1,
+        "available": 25,
+        "updated_at": "2025-12-05T23:45:00Z"
+      }
+    },
+    {
+      "id": "evt_1764978138283_x342x8hv3",
+      "type": "product",
+      "topic": "products/update",
+      "timestamp": "2025-12-05T23:42:18.283Z",
+      "data": {
+        "productId": 777,
+        "title": "Premium Widget",
+        "vendor": "KhakiSol",
+        "status": "active",
+        "variants": 0
+      },
+      "raw": {
+        "id": 777,
+        "title": "Premium Widget",
+        "vendor": "KhakiSol",
+        "status": "active"
+      }
+    },
+    {
+      "id": "evt_1764978143589_0egaqgt2m",
+      "type": "customer",
+      "topic": "customers/create",
+      "timestamp": "2025-12-05T23:42:23.589Z",
+      "data": {
+        "customerId": 888,
+        "name": "Jane Smith",
+        "email": "jane@test.com"
+      },
+      "raw": {
+        "id": 888,
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane@test.com"
+      }
+    },
+    {
+      "id": "evt_1764978299600_bp3qbmoep",
+      "type": "order",
+      "topic": "orders/create",
+      "timestamp": "2025-12-05T23:44:59.600Z",
+      "data": {
+        "orderNumber": "TEST-002",
+        "customer": "Slack Test",
+        "email": "slack-test@khakisol.com",
+        "total": "299.99",
+        "currency": "USD",
+        "itemCount": 1,
+        "fulfillment": "unfulfilled"
+      },
+      "raw": {
+        "id": 99999,
+        "order_number": "TEST-002",
+        "email": "slack-test@khakisol.com",
+        "total_price": "299.99",
+        "currency": "USD",
+        "customer": {
+          "first_name": "Slack",
+          "last_name": "Test"
+        },
+        "line_items": [
+          {
+            "name": "Test Widget",
+            "quantity": 1
+          }
+        ]
+      }
+    }
+  ],
+  "stats": {
+    "total": 8,
+    "byType": {
+      "orders/create": 3,
+      "products/update": 2,
+      "customers/create": 2,
+      "inventory_levels/update": 1
+    },
+    "byHour": {
+      "2025-12-05T23": 8
+    },
+    "lastUpdated": "2025-12-05T23:44:59.600Z"
+  }
+}

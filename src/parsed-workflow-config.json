@@ -1,0 +1,554 @@
+{
+  "name": "ultimate-dynasty-os",
+  "nodes": [
+    {
+      "id": "7febc10d-90ce-4329-90fb-a9a2ca0185c4",
+      "name": "Get Tech News",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "notes": null
+    },
+    {
+      "id": "9424428d-45e2-4085-99f6-ee223802ba5a",
+      "name": "Get World News",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "notes": null
+    },
+    {
+      "id": "a4fcf631-d3d9-4c4d-9e7b-02c93e70b23f",
+      "name": "OpenAI Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": "Free n8n credits "
+    },
+    {
+      "id": "99bed296-3855-4d89-b983-f30539cfa775",
+      "name": "AI Summary Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "e664273f-63c6-4f12-804a-0fcd99c294cb",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "notes": null
+    },
+    {
+      "id": "d0e843dc-c398-4d32-8c56-0bf83176add3",
+      "name": "Send summary with Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "e6618880-9281-4d92-91ff-c9a000429b7d",
+      "name": "Manual execution",
+      "type": "n8n-nodes-base.manualTrigger",
+      "notes": null
+    },
+    {
+      "id": "5e33fbe1-1971-48f8-81c7-08bd32e24aca",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "notes": null
+    },
+    {
+      "id": "f0a79856-ddcf-404b-95a7-a9bf882697ff",
+      "name": "Output (News summary)",
+      "type": "n8n-nodes-base.set",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "891d4705-4649-47d7-92bc-92c95cb8a11d",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "notes": null
+    },
+    {
+      "id": "15c254c1-e212-45d5-9606-7e0daa539171",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "notes": null
+    },
+    {
+      "id": "69d0ba83-289f-4a35-8a03-74673801039d",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "notes": null
+    },
+    {
+      "id": "0d2f2f9d-f63e-4864-872b-0e5783f1d1d6",
+      "name": "Workflow Configuration",
+      "type": "n8n-nodes-base.set",
+      "notes": null
+    },
+    {
+      "id": "ebde2f34-e909-476d-b9dc-cd638fc138c7",
+      "name": "Orchestrator Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "notes": null
+    },
+    {
+      "id": "a35a6f14-b7b3-4a3c-a5de-a83103f35211",
+      "name": "OpenAI Model - Orchestrator",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "e2dc7801-aa91-43b8-8149-98dd9a05e9aa",
+      "name": "Inventory Manager Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "abbd0144-1149-43de-a877-cca8a74d8fb5",
+      "name": "OpenAI Model - Inventory",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "c463ca23-d65d-4341-bd71-8a9a07d24075",
+      "name": "Shopify Tool - Inventory",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "ccf773ba-9ea3-451c-a55f-af55ddf8074b",
+      "name": "Customer Service Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "b3a21187-df1d-47b9-ba39-84312de670d8",
+      "name": "OpenAI Model - Customer Service",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "c2be4263-fe09-4969-8a8f-080314153423",
+      "name": "Gmail Tool - Customer Service",
+      "type": "n8n-nodes-base.gmailTool",
+      "notes": null
+    },
+    {
+      "id": "56c8fe07-363d-423a-a76a-430dbed472a0",
+      "name": "Marketing Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "eb45edf5-441f-4939-91bf-0f5ee149a76a",
+      "name": "OpenAI Model - Marketing",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "48d4bf1c-6a9d-4746-8641-f93cc09ba178",
+      "name": "Shopify Tool - Marketing",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "716192d4-2db7-4955-9f84-bc0877d0c8f9",
+      "name": "Order Fulfillment Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "acad6170-9226-4e55-b924-011dbca3ba5c",
+      "name": "OpenAI Model - Fulfillment",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "478b910a-7965-4bea-923d-7c0ce7e79cd3",
+      "name": "Shopify Tool - Fulfillment",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "d16fcc93-7f91-4a4d-9583-c1df38c44450",
+      "name": "Format Results",
+      "type": "n8n-nodes-base.set",
+      "notes": null
+    },
+    {
+      "id": "0747ee6f-1940-4523-8ade-b9b42db218da",
+      "name": "Dynasty Daily Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "notes": null
+    },
+    {
+      "id": "ce48d220-2e36-4f43-81b6-a43a06d53992",
+      "name": "Check Dynasty KPI Sheet / Stripe",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": null
+    },
+    {
+      "id": "ec0456af-9078-409f-b134-4ce7db176ac7",
+      "name": "Dynasty Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "notes": null
+    },
+    {
+      "id": "db3beaae-4cdc-41b9-920f-609d6bb0d4ce",
+      "name": "Get Tech News1",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "notes": null
+    },
+    {
+      "id": "10db1204-0628-4f7c-9cf7-558c441fe186",
+      "name": "Get World News1",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "notes": null
+    },
+    {
+      "id": "ca995f59-b830-408c-a342-eaa1c852c788",
+      "name": "OpenAI Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": "Free n8n credits "
+    },
+    {
+      "id": "5fc37263-26df-4929-a693-199656a454da",
+      "name": "AI Summary Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "85282253-5c3d-4edb-a9c2-7dbfd256214d",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "notes": null
+    },
+    {
+      "id": "850caedb-6d0f-4409-a489-835d5009fd3a",
+      "name": "Send summary with Gmail1",
+      "type": "n8n-nodes-base.gmail",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "1ee8b35b-bbe6-4af9-93b0-4498f8defc78",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "notes": null
+    },
+    {
+      "id": "0bcdd285-88f4-4cd6-bd00-e5461a522812",
+      "name": "Output (News summary)1",
+      "type": "n8n-nodes-base.set",
+      "notes": "Double-click to open"
+    },
+    {
+      "id": "f376604d-8344-4bdb-a1cb-ff11f8a89eba",
+      "name": "Simple Memory1",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "notes": null
+    },
+    {
+      "id": "150e3a3c-acab-40b5-925b-284c47adaaa5",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "notes": null
+    },
+    {
+      "id": "56ff3088-6184-4bc8-935a-eeeb70283f1d",
+      "name": "Workflow Configuration1",
+      "type": "n8n-nodes-base.set",
+      "notes": null
+    },
+    {
+      "id": "5d7df384-3a8a-4829-be98-a5ef4f712793",
+      "name": "Orchestrator Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "notes": null
+    },
+    {
+      "id": "459ef5f2-a32e-431b-bc58-9cb5b1392418",
+      "name": "OpenAI Model - Orchestrator1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "de7726b4-bcea-4305-baad-1a9cd61bf1fa",
+      "name": "Inventory Manager Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "87ecbcb3-0e46-4e43-8238-f55736395cc2",
+      "name": "OpenAI Model - Inventory1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "c0b4ab81-45d4-4575-930f-281d29c20cbc",
+      "name": "Shopify Tool - Inventory1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "4004a36d-c071-4c2a-a8e4-3e0e1acbf3aa",
+      "name": "Customer Service Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "293a6dff-3750-4a30-be8d-8589166e4777",
+      "name": "OpenAI Model - Customer Service1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "2583340f-ae0b-432a-a2e1-0b5ab01d4741",
+      "name": "Gmail Tool - Customer Service1",
+      "type": "n8n-nodes-base.gmailTool",
+      "notes": null
+    },
+    {
+      "id": "2a3df95c-4c88-4e97-a63d-a39b805b323e",
+      "name": "Marketing Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "a97753ab-c133-4ec8-ad59-5ccc91c46726",
+      "name": "OpenAI Model - Marketing1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "6181a930-8d9a-4d14-8d72-b8a31c80e77e",
+      "name": "Shopify Tool - Marketing1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "b2dc5d73-8c60-4cd9-8a6a-18b9bf280195",
+      "name": "Order Fulfillment Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "notes": null
+    },
+    {
+      "id": "58de8e96-d7c0-4b46-9ceb-d686c781f895",
+      "name": "OpenAI Model - Fulfillment1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "notes": null
+    },
+    {
+      "id": "f0de4b11-db23-4b95-becb-aa992f5324d4",
+      "name": "Shopify Tool - Fulfillment1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "notes": null
+    },
+    {
+      "id": "3464f0f3-bde9-4dc6-81b4-699d1b93a24e",
+      "name": "Format Results1",
+      "type": "n8n-nodes-base.set",
+      "notes": null
+    }
+  ],
+  "agents": [
+    {
+      "name": "AI Summary Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "description": null,
+      "systemMessage": null
+    },
+    {
+      "name": "Orchestrator Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "description": null,
+      "systemMessage": "You are the Orchestrator Agent for a Shopify store management system.\n\nYour role is to coordinate specialized AI agents to run the store efficiently.\n\nYour task is to:\n1. Call the Inventory Manager Agent Tool to check stock levels and reorder products if needed\n2. Call the Customer Service Agent Tool to respond to customer inquiries\n3. Call the Marketing Agent Tool to analyze sales data and suggest promotions\n4. Call the Order Fulfillment Agent Tool to process pending orders\n5. Compile a summary report of all activities\n\nReturn a comprehensive report of all actions taken by each agent."
+    },
+    {
+      "name": "Inventory Manager Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Manages inventory levels, checks stock, and reorders products when needed",
+      "systemMessage": "You are the Inventory Manager Agent for a Shopify store.\n\nYour responsibilities:\n1. Check current inventory levels using the Shopify Tool\n2. Identify products below the low stock threshold\n3. Create purchase orders or restock alerts for low inventory items\n4. Report on inventory status\n\nUse the Shopify Tool to:\n- Get all products and their inventory levels\n- Update product quantities if needed\n- Check for out-of-stock items\n\nReturn a detailed inventory report including:\n- Total products checked\n- Low stock items (below threshold)\n- Out of stock items\n- Recommended reorder quantities"
+    },
+    {
+      "name": "Customer Service Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Handles customer inquiries and sends email responses",
+      "systemMessage": "You are the Customer Service Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for new customer inquiries or support tickets\n2. Draft professional and helpful email responses\n3. Send responses using the Gmail Tool\n4. Track customer satisfaction\n\nWhen responding to customers:\n- Be professional and empathetic\n- Provide clear solutions or next steps\n- Include relevant order or product information\n- Maintain brand voice\n\nUse the Gmail Tool to send email responses.\n\nReturn a summary of:\n- Number of inquiries handled\n- Types of issues addressed\n- Emails sent"
+    },
+    {
+      "name": "Marketing Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Analyzes sales data and creates marketing campaigns",
+      "systemMessage": "You are the Marketing Agent for a Shopify store.\n\nYour responsibilities:\n1. Analyze recent sales data and trends using the Shopify Tool\n2. Identify best-selling and underperforming products\n3. Suggest promotional campaigns or discounts\n4. Create marketing recommendations\n\nUse the Shopify Tool to:\n- Get order data and sales metrics\n- Analyze product performance\n- Review customer purchase patterns\n\nReturn a marketing report including:\n- Sales trends analysis\n- Top performing products\n- Recommended promotions or discounts\n- Target customer segments\n- Suggested marketing actions"
+    },
+    {
+      "name": "Order Fulfillment Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Processes pending orders and manages fulfillment",
+      "systemMessage": "You are the Order Fulfillment Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for pending/unfulfilled orders using the Shopify Tool\n2. Verify inventory availability for orders\n3. Update order fulfillment status\n4. Flag any issues or delays\n\nUse the Shopify Tool to:\n- Get all unfulfilled orders\n- Check order details and line items\n- Update fulfillment status\n- Track shipping information\n\nReturn a fulfillment report including:\n- Total orders processed\n- Successfully fulfilled orders\n- Orders with issues or delays\n- Inventory concerns\n- Next steps required"
+    },
+    {
+      "name": "AI Summary Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "description": null,
+      "systemMessage": null
+    },
+    {
+      "name": "Orchestrator Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "description": null,
+      "systemMessage": "You are the Orchestrator Agent for a Shopify store management system.\n\nYour role is to coordinate specialized AI agents to run the store efficiently.\n\nYour task is to:\n1. Call the Inventory Manager Agent Tool to check stock levels and reorder products if needed\n2. Call the Customer Service Agent Tool to respond to customer inquiries\n3. Call the Marketing Agent Tool to analyze sales data and suggest promotions\n4. Call the Order Fulfillment Agent Tool to process pending orders\n5. Compile a summary report of all activities\n\nReturn a comprehensive report of all actions taken by each agent."
+    },
+    {
+      "name": "Inventory Manager Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Manages inventory levels, checks stock, and reorders products when needed",
+      "systemMessage": "You are the Inventory Manager Agent for a Shopify store.\n\nYour responsibilities:\n1. Check current inventory levels using the Shopify Tool\n2. Identify products below the low stock threshold\n3. Create purchase orders or restock alerts for low inventory items\n4. Report on inventory status\n\nUse the Shopify Tool to:\n- Get all products and their inventory levels\n- Update product quantities if needed\n- Check for out-of-stock items\n\nReturn a detailed inventory report including:\n- Total products checked\n- Low stock items (below threshold)\n- Out of stock items\n- Recommended reorder quantities"
+    },
+    {
+      "name": "Customer Service Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Handles customer inquiries and sends email responses",
+      "systemMessage": "You are the Customer Service Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for new customer inquiries or support tickets\n2. Draft professional and helpful email responses\n3. Send responses using the Gmail Tool\n4. Track customer satisfaction\n\nWhen responding to customers:\n- Be professional and empathetic\n- Provide clear solutions or next steps\n- Include relevant order or product information\n- Maintain brand voice\n\nUse the Gmail Tool to send email responses.\n\nReturn a summary of:\n- Number of inquiries handled\n- Types of issues addressed\n- Emails sent"
+    },
+    {
+      "name": "Marketing Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Analyzes sales data and creates marketing campaigns",
+      "systemMessage": "You are the Marketing Agent for a Shopify store.\n\nYour responsibilities:\n1. Analyze recent sales data and trends using the Shopify Tool\n2. Identify best-selling and underperforming products\n3. Suggest promotional campaigns or discounts\n4. Create marketing recommendations\n\nUse the Shopify Tool to:\n- Get order data and sales metrics\n- Analyze product performance\n- Review customer purchase patterns\n\nReturn a marketing report including:\n- Sales trends analysis\n- Top performing products\n- Recommended promotions or discounts\n- Target customer segments\n- Suggested marketing actions"
+    },
+    {
+      "name": "Order Fulfillment Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Processes pending orders and manages fulfillment",
+      "systemMessage": "You are the Order Fulfillment Agent for a Shopify store.\n\nYour responsibilities:\n1. Check for pending/unfulfilled orders using the Shopify Tool\n2. Verify inventory availability for orders\n3. Update order fulfillment status\n4. Flag any issues or delays\n\nUse the Shopify Tool to:\n- Get all unfulfilled orders\n- Check order details and line items\n- Update fulfillment status\n- Track shipping information\n\nReturn a fulfillment report including:\n- Total orders processed\n- Successfully fulfilled orders\n- Orders with issues or delays\n- Inventory concerns\n- Next steps required"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Get Tech News",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "description": null
+    },
+    {
+      "name": "Get World News",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "description": "Reads the news"
+    },
+    {
+      "name": "Inventory Manager Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Manages inventory levels, checks stock, and reorders products when needed"
+    },
+    {
+      "name": "Shopify Tool - Inventory",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    },
+    {
+      "name": "Customer Service Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Handles customer inquiries and sends email responses"
+    },
+    {
+      "name": "Gmail Tool - Customer Service",
+      "type": "n8n-nodes-base.gmailTool",
+      "description": null
+    },
+    {
+      "name": "Marketing Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Analyzes sales data and creates marketing campaigns"
+    },
+    {
+      "name": "Shopify Tool - Marketing",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    },
+    {
+      "name": "Order Fulfillment Agent Tool",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Processes pending orders and manages fulfillment"
+    },
+    {
+      "name": "Shopify Tool - Fulfillment",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    },
+    {
+      "name": "Get Tech News1",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "description": null
+    },
+    {
+      "name": "Get World News1",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "description": "Reads the news"
+    },
+    {
+      "name": "Inventory Manager Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Manages inventory levels, checks stock, and reorders products when needed"
+    },
+    {
+      "name": "Shopify Tool - Inventory1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    },
+    {
+      "name": "Customer Service Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Handles customer inquiries and sends email responses"
+    },
+    {
+      "name": "Gmail Tool - Customer Service1",
+      "type": "n8n-nodes-base.gmailTool",
+      "description": null
+    },
+    {
+      "name": "Marketing Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Analyzes sales data and creates marketing campaigns"
+    },
+    {
+      "name": "Shopify Tool - Marketing1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    },
+    {
+      "name": "Order Fulfillment Agent Tool1",
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "description": "Processes pending orders and manages fulfillment"
+    },
+    {
+      "name": "Shopify Tool - Fulfillment1",
+      "type": "n8n-nodes-base.shopifyTool",
+      "description": null
+    }
+  ],
+  "credentials": [
+    {
+      "type": "openAiApi",
+      "id": "RYK6dJ64oGG4On28",
+      "name": "OpenAi account"
+    },
+    {
+      "type": "gmailOAuth2",
+      "id": "eFaQYgT42pcKU2U5",
+      "name": "Gmail account"
+    },
+    {
+      "type": "shopifyApi",
+      "id": "YnAASjfCPypdAjl6",
+      "name": "Shopify account"
+    },
+    {
+      "type": "stripeApi",
+      "id": "PN1Yhu7hhndNuJOD",
+      "name": "Stripe account"
+    },
+    {
+      "type": "slackOAuth2Api",
+      "id": "MMu7Mu5l6zSSUZmh",
+      "name": "Slack account"
+    }
+  ],
+  "shopifyConfig": {
+    "storeName": "i2teez.myshopify.com",
+    "customerServiceEmail": "sdthompson35@gmail.com"
+  }
+}

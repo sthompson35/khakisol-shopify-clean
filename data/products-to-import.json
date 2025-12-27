@@ -1,0 +1,149 @@
+{
+  "products": [
+    {
+      "title": "Premium Denim Jeans",
+      "description": "High-quality stretch denim jeans with a modern slim fit. Comfortable all-day wear.",
+      "vendor": "KhakiSol",
+      "product_type": "Jeans",
+      "tags": "denim, jeans, casual, premium",
+      "status": "active",
+      "variants": [
+        { "size": "30", "color": "Dark Blue", "price": "59.99", "sku": "JEANS-DBL-30", "quantity": 30 },
+        { "size": "32", "color": "Dark Blue", "price": "59.99", "sku": "JEANS-DBL-32", "quantity": 45 },
+        { "size": "34", "color": "Dark Blue", "price": "59.99", "sku": "JEANS-DBL-34", "quantity": 40 },
+        { "size": "32", "color": "Black", "price": "59.99", "sku": "JEANS-BLK-32", "quantity": 35 },
+        { "size": "34", "color": "Black", "price": "59.99", "sku": "JEANS-BLK-34", "quantity": 38 }
+      ]
+    },
+    {
+      "title": "Polo Shirt",
+      "description": "Classic polo shirt made from breathable cotton pique fabric. Perfect for smart casual occasions.",
+      "vendor": "KhakiSol",
+      "product_type": "Shirts",
+      "tags": "polo, shirt, smart casual, cotton",
+      "status": "active",
+      "variants": [
+        { "size": "Small", "color": "Navy", "price": "34.99", "sku": "POLO-NVY-S", "quantity": 25 },
+        { "size": "Medium", "color": "Navy", "price": "34.99", "sku": "POLO-NVY-M", "quantity": 40 },
+        { "size": "Large", "color": "Navy", "price": "34.99", "sku": "POLO-NVY-L", "quantity": 35 },
+        { "size": "Medium", "color": "White", "price": "34.99", "sku": "POLO-WHT-M", "quantity": 45 },
+        { "size": "Large", "color": "White", "price": "34.99", "sku": "POLO-WHT-L", "quantity": 30 },
+        { "size": "Medium", "color": "Red", "price": "34.99", "sku": "POLO-RED-M", "quantity": 28 }
+      ]
+    },
+    {
+      "title": "Cargo Shorts",
+      "description": "Durable cargo shorts with multiple pockets. Great for outdoor activities and casual wear.",
+      "vendor": "KhakiSol",
+      "product_type": "Shorts",
+      "tags": "shorts, cargo, casual, outdoor, summer",
+      "status": "active",
+      "variants": [
+        { "size": "30", "color": "Khaki", "price": "39.99", "sku": "CARGO-KHK-30", "quantity": 20 },
+        { "size": "32", "color": "Khaki", "price": "39.99", "sku": "CARGO-KHK-32", "quantity": 35 },
+        { "size": "34", "color": "Khaki", "price": "39.99", "sku": "CARGO-KHK-34", "quantity": 30 },
+        { "size": "32", "color": "Olive", "price": "39.99", "sku": "CARGO-OLV-32", "quantity": 25 },
+        { "size": "34", "color": "Olive", "price": "39.99", "sku": "CARGO-OLV-34", "quantity": 28 }
+      ]
+    },
+    {
+      "title": "Bomber Jacket",
+      "description": "Stylish bomber jacket with ribbed cuffs and hem. Lightweight and perfect for layering.",
+      "vendor": "KhakiSol",
+      "product_type": "Jackets",
+      "tags": "jacket, bomber, outerwear, casual",
+      "status": "active",
+      "variants": [
+        { "size": "Small", "color": "Black", "price": "79.99", "sku": "BOMBER-BLK-S", "quantity": 15 },
+        { "size": "Medium", "color": "Black", "price": "79.99", "sku": "BOMBER-BLK-M", "quantity": 25 },
+        { "size": "Large", "color": "Black", "price": "79.99", "sku": "BOMBER-BLK-L", "quantity": 20 },
+        { "size": "Medium", "color": "Navy", "price": "79.99", "sku": "BOMBER-NVY-M", "quantity": 18 },
+        { "size": "Large", "color": "Navy", "price": "79.99", "sku": "BOMBER-NVY-L", "quantity": 22 }
+      ]
+    },
+    {
+      "title": "Athletic Joggers",
+      "description": "Comfortable joggers with tapered fit and elastic waistband. Ideal for workouts or casual wear.",
+      "vendor": "KhakiSol",
+      "product_type": "Pants",
+      "tags": "joggers, athletic, comfortable, casual, workout",
+      "status": "active",
+      "variants": [
+        { "size": "Small", "color": "Gray", "price": "44.99", "sku": "JOG-GRY-S", "quantity": 30 },
+        { "size": "Medium", "color": "Gray", "price": "44.99", "sku": "JOG-GRY-M", "quantity": 45 },
+        { "size": "Large", "color": "Gray", "price": "44.99", "sku": "JOG-GRY-L", "quantity": 40 },
+        { "size": "Medium", "color": "Black", "price": "44.99", "sku": "JOG-BLK-M", "quantity": 50 },
+        { "size": "Large", "color": "Black", "price": "44.99", "sku": "JOG-BLK-L", "quantity": 42 }
+      ]
+    },
+    {
+      "title": "Crew Neck Sweater",
+      "description": "Soft knit sweater with classic crew neck. Perfect for cooler weather.",
+      "vendor": "KhakiSol",
+      "product_type": "Sweaters",
+      "tags": "sweater, knitwear, winter, casual",
+      "status": "active",
+      "variants": [
+        { "size": "Small", "color": "Charcoal", "price": "54.99", "sku": "SWTR-CHR-S", "quantity": 20 },
+        { "size": "Medium", "color": "Charcoal", "price": "54.99", "sku": "SWTR-CHR-M", "quantity": 30 },
+        { "size": "Large", "color": "Charcoal", "price": "54.99", "sku": "SWTR-CHR-L", "quantity": 25 },
+        { "size": "Medium", "color": "Burgundy", "price": "54.99", "sku": "SWTR-BRG-M", "quantity": 22 },
+        { "size": "Large", "color": "Burgundy", "price": "54.99", "sku": "SWTR-BRG-L", "quantity": 18 }
+      ]
+    },
+    {
+      "title": "Oxford Dress Shirt",
+      "description": "Classic oxford shirt with button-down collar. A wardrobe essential for any professional.",
+      "vendor": "KhakiSol",
+      "product_type": "Shirts",
+      "tags": "oxford, dress shirt, professional, business",
+      "status": "active",
+      "variants": [
+        { "size": "Small", "color": "White", "price": "49.99", "sku": "OXFD-WHT-S", "quantity": 25 },
+        { "size": "Medium", "color": "White", "price": "49.99", "sku": "OXFD-WHT-M", "quantity": 40 },
+        { "size": "Large", "color": "White", "price": "49.99", "sku": "OXFD-WHT-L", "quantity": 35 },
+        { "size": "Medium", "color": "Light Blue", "price": "49.99", "sku": "OXFD-LBL-M", "quantity": 38 },
+        { "size": "Large", "color": "Light Blue", "price": "49.99", "sku": "OXFD-LBL-L", "quantity": 30 }
+      ]
+    },
+    {
+      "title": "Beanie Hat",
+      "description": "Warm knitted beanie hat. One size fits most. Essential winter accessory.",
+      "vendor": "KhakiSol",
+      "product_type": "Accessories",
+      "tags": "beanie, hat, winter, accessories",
+      "status": "active",
+      "variants": [
+        { "size": "One Size", "color": "Black", "price": "19.99", "sku": "BEANIE-BLK", "quantity": 50 },
+        { "size": "One Size", "color": "Gray", "price": "19.99", "sku": "BEANIE-GRY", "quantity": 45 },
+        { "size": "One Size", "color": "Navy", "price": "19.99", "sku": "BEANIE-NVY", "quantity": 40 }
+      ]
+    },
+    {
+      "title": "Sunglasses",
+      "description": "Classic aviator sunglasses with UV protection. Stylish and functional.",
+      "vendor": "KhakiSol",
+      "product_type": "Accessories",
+      "tags": "sunglasses, accessories, summer, aviator",
+      "status": "active",
+      "variants": [
+        { "size": "One Size", "color": "Gold/Brown", "price": "29.99", "sku": "SUNG-GLD", "quantity": 35 },
+        { "size": "One Size", "color": "Silver/Gray", "price": "29.99", "sku": "SUNG-SLV", "quantity": 30 },
+        { "size": "One Size", "color": "Black", "price": "29.99", "sku": "SUNG-BLK", "quantity": 40 }
+      ]
+    },
+    {
+      "title": "Weekend Duffle Bag",
+      "description": "Spacious duffle bag perfect for weekend getaways. Durable canvas with leather accents.",
+      "vendor": "KhakiSol",
+      "product_type": "Bags",
+      "tags": "bag, duffle, travel, weekend",
+      "status": "active",
+      "variants": [
+        { "size": "One Size", "color": "Tan", "price": "89.99", "sku": "DUFFLE-TAN", "quantity": 15 },
+        { "size": "One Size", "color": "Black", "price": "89.99", "sku": "DUFFLE-BLK", "quantity": 20 },
+        { "size": "One Size", "color": "Navy", "price": "89.99", "sku": "DUFFLE-NVY", "quantity": 18 }
+      ]
+    }
+  ]
+}

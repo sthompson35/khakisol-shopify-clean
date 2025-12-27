@@ -1,0 +1,237 @@
+{
+  "name": "Onboarding Pipeline – Slack → Notion → Cassie",
+  "nodes": [
+    {
+      "parameters": {
+        "trigger": [
+          "app_mention"
+        ],
+        "watchWorkspace": true,
+        "options": {}
+      },
+      "id": "nodeSlackTrigger",
+      "name": "Slack Trigger",
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        272,
+        304
+      ],
+      "webhookId": "replace-with-any-uuid-or-leave",
+      "credentials": {
+        "slackApi": {
+          "id": "EwOsZH6bz3yGV5yA",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const event = $json.event || {};\nconst text = event.text || '';\n\n// Strip bot mention like <@U12345>\nconst cleaned = text.replace(/<@[^>]+>/g, '').trim();\n\nfunction match(label) {\n  const regex = new RegExp(label + ':\\\\s*([^|\\n]+)', 'i');\n  const m = cleaned.match(regex);\n  return m ? m[1].trim() : null;\n}\n\nconst clientName = match('Client') || match('Client Name') || null;\nconst pkg = match('Package') || match('Offer') || null;\n\nreturn [\n  {\n    json: {\n      originalText: text,\n      cleanedText: cleaned,\n      clientName,\n      package: pkg,\n      slackChannel: event.channel || null,\n      slackUser: event.user || null,\n      slackTs: event.ts || null,\n      slackTeam: $json.team_id || null\n    }\n  }\n];"
+      },
+      "id": "nodeParseRequest",
+      "name": "Parse Request",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        528,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": "={{ $env.NOTION_DATABASE_ID }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Name|title",
+              "title": "={{$json[\"clientName\"] || \"Onboarding from Slack\"}}",
+              "relationValue": [
+                ""
+              ]
+            },
+            {
+              "key": "Client|rich_text",
+              "relationValue": [
+                ""
+              ]
+            },
+            {
+              "key": "Package|rich_text",
+              "relationValue": [
+                ""
+              ]
+            },
+            {
+              "key": "Slack Link|url",
+              "urlValue": "={{$json[\"slackChannel\"] && $json[\"slackTs\"] ? `https://slack.com/app_redirect?channel=${$json[\"slackChannel\"]}&message_ts=${$json[\"slackTs\"]}` : \"\"}}",
+              "relationValue": [
+                ""
+              ]
+            },
+            {
+              "key": "Raw Message|rich_text",
+              "relationValue": [
+                ""
+              ]
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": []
+        },
+        "options": {}
+      },
+      "id": "nodeNotionCreate",
+      "name": "Create Notion Page",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        832,
+        304
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "notion_fish_brow_674",
+          "name": "Notion - fish-brow-674"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"response_format\": {\"type\": \"json_object\"},\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Cassie, a Client Onboarding Bot. Given Slack + Notion context, return ONLY a JSON object with keys: checklist (array of short strings), client_email (string), questions (array of short strings). No markdown, no prose.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($('Parse Request').item.json) }}\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "nodeCallCassie",
+      "name": "Call Cassie (OpenAI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        304
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "W8OQ4oi96j90GGbK",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const raw = $json.choices?.[0]?.message?.content || '';\nlet parsed;\ntry {\n  parsed = JSON.parse(raw);\n} catch (e) {\n  parsed = { raw };\n}\n\nconst ctx = $('Parse Request').item.json;\nconst notion = $('Create Notion Page').item.json;\n\nconst checklist = parsed.checklist || [];\nconst questions = parsed.questions || [];\nconst email = parsed.client_email || '';\n\nlet text = '✅ Onboarding Pipeline created/updated\\n\\n';\ntext += `Client: ${ctx.clientName || 'Not specified'}\\n`;\ntext += `Package: ${ctx.package || 'Not specified'}\\n\\n`;\n\nif (checklist.length) {\n  text += 'Checklist:\\n';\n  checklist.forEach((item, i) => {\n    text += `${i + 1}. ${item}\\n`;\n  });\n  text += '\\n';\n}\n\nif (questions.length) {\n  text += 'Missing info to confirm:\\n';\n  questions.forEach(q => {\n    text += `• ${q}\\n`;\n  });\n  text += '\\n';\n}\n\nif (email) {\n  text += 'Suggested welcome email (draft):\\n';\n  text += email + '\\n\\n';\n}\n\nif (notion && notion.url) {\n  text += `Notion page: ${notion.url}\\n`;\n}\n\nreturn [\n  {\n    json: {\n      text,\n      slackChannel: ctx.slackChannel\n    }\n  }\n];"
+      },
+      "id": "nodeBuildSlackMessage",
+      "name": "Build Slack Message",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "={{$json[\"slackChannel\"]}}"
+        },
+        "text": "={{$json[\"text\"]}}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "nodePostSlack",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1728,
+        304
+      ],
+      "webhookId": "594a038b-178b-4543-ad33-4b3b58803122",
+      "credentials": {
+        "slackApi": {
+          "id": "EwOsZH6bz3yGV5yA",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Request": {
+      "main": [
+        [
+          {
+            "node": "Create Notion Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Notion Page": {
+      "main": [
+        [
+          {
+            "node": "Call Cassie (OpenAI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Cassie (OpenAI)": {
+      "main": [
+        [
+          {
+            "node": "Build Slack Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Slack Message": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "50d6c7a5-08f1-4e66-82ab-d7415a4f0c50",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c96184e9c73110ff841fa8dd362b23e4b0a56fb6dbfa8b67e0ab632a82eb0843"
+  },
+  "id": "KcCegd0JUngMLr97",
+  "tags": []
+}
